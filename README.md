@@ -85,9 +85,18 @@ project/
 
 ## Getting Started
 
+### Option 1: NPX Command (Recommended)
+```bash
+npx ai-tasker
+```
+This will automatically initialize the `.tasker/` folder in your current project.
+
+### Option 2: Manual Setup
 1. Copy `.tasker/` folder to your project root
 2. Customize `.tasker/config/workflow-config.json` for your project
 3. Update templates in `.tasker/templates/` if needed
+
+### Next Steps
 4. Start: `@.tasker/rules/01-create-prd.mdc [your feature idea]`
 
 ## Example Features
