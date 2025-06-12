@@ -1,0 +1,114 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Rule: Analyzing Existing Codebase for PRD Implementation
+
+## Goal
+
+To guide an AI assistant in analyzing the existing codebase against a PRD's requirements and generating a comprehensive technical roadmap that identifies what can be modified vs. what needs to be built from scratch.
+
+## Configuration
+
+This rule uses settings from `.tasker/config/workflow-config.json`:
+- **Output path**: Uses `paths.featuresDirectory` + `/[feature-name]/roadmap.md`
+- **Input path**: Expects PRD at `paths.featuresDirectory` + `/[feature-name]/PRD.md`
+- **Template**: Uses `templates.roadmap` for consistent formatting
+
+## Process
+
+1. **Receive PRD Reference:** The user points the AI to a specific PRD file that needs to be implemented
+2. **Analyze Existing Codebase:** The AI systematically explores the current codebase to understand:
+   - Existing infrastructure and architecture
+   - Current features and functionality
+   - Data models and database schema
+   - Dependencies and frameworks in use
+   - API endpoints and services
+3. **Map PRD Requirements to Code:** Compare PRD functional requirements against existing implementations
+4. **Generate Technical Roadmap:** Create a detailed analysis document in the same feature directory as the PRD using the roadmap template.
+5. **Save Analysis:** Save as `roadmap.md` with comprehensive implementation guidance
+
+## Analysis Structure
+
+The generated technical roadmap should follow the template at `templates.roadmap` and must include these sections:
+
+### ✅ Existing Infrastructure (Can Be Modified)
+- **Backend Infrastructure** - Current server setup, database, APIs
+- **Frontend Infrastructure** - UI components, routing, state management  
+- **Data Models** - Existing schemas and structures
+- Completion percentages for each area
+
+### 🔨 Major Modifications Required
+- **Authentication System** - Current vs. needed capabilities
+- **Business Logic** - Areas requiring significant changes
+- **Database Schema** - Tables/fields to add or modify
+- Specific files that need modification
+
+### 🆕 Implement From Scratch
+- **Missing Core Systems** - Components with 0% implementation
+- **New Features** - Functionality not present in codebase
+- **Integration Points** - New connections between systems
+- Dependencies that need to be added
+
+### 📦 Missing Dependencies
+- Backend dependencies to add with versions
+- Frontend dependencies to add with versions
+- Any build tool or infrastructure changes needed
+
+### 🗂️ New Files Required
+- **Backend Files** - New routes, controllers, services, models
+- **Frontend Files** - New components, hooks, services, stores
+- Brief description of each file's purpose
+
+### 📊 Implementation Effort Analysis
+- Table format comparing components by:
+  - Current Status
+  - Required Effort (Low/Medium/High)
+  - Priority (Critical/High/Medium/Low)
+
+### 🎯 Development Strategy
+- **Phase-based Implementation Plan** with realistic timelines
+- **Overall Assessment** with percentage breakdown (modify vs. new)
+- **Risk Assessment** and mitigation strategies
+
+### 📁 Implementation File Tree
+- **Visual representation** of all file changes needed
+- Show new files to be created with `[NEW]` indicator
+- Show existing files to be modified with `[MODIFIED]` indicator
+- Include brief description of changes for each file
+- Organize by feature/component groupings
+
+## Output Requirements
+
+- **Format:** Markdown (`.md`)
+- **Location:** As defined in `workflow-config.json` → `paths.featuresDirectory/[feature-name]/`
+- **Filename:** `roadmap.md`
+- **Template:** Use the structure from `templates.roadmap` for consistent formatting
+- **Target Audience:** Development team and technical leads
+
+## AI Instructions
+
+When creating the technical roadmap:
+
+1. **Be Thorough:** Explore all major directories and key files in the codebase
+2. **Be Specific:** Reference actual file names and line numbers when relevant
+3. **Be Realistic:** Provide honest effort estimates based on complexity
+4. **Be Strategic:** Prioritize critical path items that unlock other development
+5. **Use Parallel Analysis:** Read multiple files simultaneously to understand architecture
+6. **Reference PRD:** Directly map functional requirements to code analysis
+7. **Quantify Progress:** Use percentage completion estimates for existing systems
+8. **Create File Tree:** Generate a comprehensive file tree showing all changes needed with clear indicators for new vs. modified files
+9. **Follow Config Paths:** Use paths defined in workflow-config.json for consistency
+10. **Use Template:** Follow the roadmap template structure for consistent formatting
+
+## Integration with Task Flow
+
+This analysis feeds directly into step 3 (generate-tasks-from-prd) by providing:
+- Clear understanding of what exists vs. what's needed
+- Realistic effort estimates for task planning
+- Specific files and components to reference in tasks
+- Dependencies and prerequisites for implementation order
+- Visual file tree roadmap for organized development approach
+
+The technical roadmap becomes the foundation for accurate task generation and sprint planning.

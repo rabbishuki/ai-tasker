@@ -1,0 +1,95 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Rule: Generating a Task List from a PRD
+
+## Goal
+
+To guide an AI assistant in creating a detailed, step-by-step task list in Markdown format based on an existing Product Requirements Document (PRD) and technical roadmap. The task list should be suitable for a developer to follow for implementation.
+
+## Configuration
+
+This rule uses settings from `.tasker/config/workflow-config.json`:
+- **Output path**: Uses `paths.featuresDirectory` + `/[feature-name]/tasks.md`
+- **Input paths**: Expects PRD and roadmap in same feature directory
+- **Max tasks**: Uses `settings.maxTasksPerParent` for task breakdown guidance
+- **Template**: Uses `templates.tasks` for consistent formatting
+
+## Prerequisites
+
+This rule should be used after:
+- Step 1: PRD has been created (01-create-prd)
+- Step 2: Technical roadmap has been generated (02-analyze-codebase)
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** As defined in `workflow-config.json` → `paths.featuresDirectory/[feature-name]/`
+- **Filename:** `tasks.md`
+- **Template:** Use the structure from `templates.tasks` for consistent formatting
+
+## Process
+
+1.  **Receive PRD Reference:** The user points the AI to a specific PRD file
+2.  **Reference Technical Roadmap:** The AI should also reference the technical roadmap in the same feature directory
+3.  **Analyze PRD and Roadmap:** The AI reads and analyzes the functional requirements, user stories, and existing codebase analysis
+4.  **Phase 1: Generate Parent Tasks:** Based on the PRD analysis and technical roadmap, create the file using the tasks template and generate the main, high-level tasks required to implement the feature. Use your judgement on how many high-level tasks to use (refer to `settings.maxTasksPerParent` as guidance). Each task needs to be self contained, testable and deployable on it's own.  It's likely to be 3-5. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level tasks based on the PRD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
+5.  **Wait for Confirmation:** Pause and wait for the user to respond with "Go".
+6.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down each parent task into smaller, actionable sub-tasks. Ensure sub-tasks logically follow from the parent task and cover the implementation details implied by the PRD. Each subtask needs to be small enough to implement by a junior in less than a day of work (refer to `settings.taskTimeoutDays`). It should be testable and deployable. Break task down by feature end-to-end, not by technology.
+7.  **Identify Relevant Files:** Based on the tasks, PRD, and technical roadmap, identify potential files that will need to be created or modified. Use the template structure to organize these files by category (Backend New, Backend Modified, Frontend New, etc.).
+8.  **Generate Final Output:** Combine the parent tasks, sub-tasks, and relevant files into the final Markdown structure following the tasks template.
+9.  **Save Task List:** Save the generated document in the configured features directory with the filename `tasks.md`.
+
+## Output Format
+
+The generated task list _must_ follow the template structure from `templates.tasks`:
+
+```markdown
+# [Feature Name] - Implementation Tasks
+
+## Tasks
+
+- [ ] 1.0 Parent Task Title
+  - [ ] 1.1 Sub-task description
+  - [ ] 1.2 Sub-task description
+- [ ] 2.0 Parent Task Title
+  - [ ] 2.1 Sub-task description
+  - [ ] 2.2 Sub-task description
+  - [ ] 2.3 Sub-task description
+- [ ] 3.0 Parent Task Title (may not have sub-tasks if simple enough)
+
+## Overview
+
+[Brief description of the high-level tasks and their purpose]
+
+## Relevant Files
+
+**Backend Files - New:**
+- `path/to/new/file1.ts` - Brief description of purpose
+
+**Backend Files - Modified:**
+- `path/to/existing/file1.ts` - Brief description of changes needed
+
+[Continue with Frontend Files, Configuration Files, etc. as per template]
+```
+
+## Interaction Model
+
+The process explicitly requires a pause after generating parent tasks to get user confirmation ("Go") before proceeding to generate sub-tasks. This ensures the high-level plan aligns with user expectations before diving into details.
+
+## Integration with Technical Roadmap
+
+When generating tasks, the AI should:
+- Leverage existing infrastructure identified in the technical roadmap
+- Prioritize modifications over new implementations where possible
+- Reference specific files mentioned in the roadmap analysis
+- Use effort estimates from the roadmap for task sizing
+- Follow the phase-based implementation strategy
+- Respect config settings for task sizing and timeouts
+- Use the tasks template for consistent file organization
+
+## Target Audience
+
+Assume the primary reader of the task list is a **developer** who will implement the feature.

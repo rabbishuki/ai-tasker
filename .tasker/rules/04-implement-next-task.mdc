@@ -1,0 +1,82 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Task List Management
+
+Guidelines for managing task lists in markdown files to track progress on completing a PRD
+
+## Configuration
+
+This rule uses settings from `.tasker/config/workflow-config.json`:
+- **Test file path**: Uses `paths.featuresDirectory` + `/[feature-name]/tests/[task-name].md`
+- **Test template**: Uses `templates.test` for consistent test file format
+- **Task timeout**: Uses `settings.taskTimeoutDays` for planning guidance
+
+## Task Implementation
+- **Task Ordering:** Take the next task based on the first sub-task that is not completed
+- **One sub‑task at a time:** Do **NOT** start the next sub‑task until you ask the user for permission and they say "yes" or "y"
+- **Completion protocol:**  
+  1. When you finish a **sub‑task**, immediately mark it as completed by changing `[ ]` to `[x]`.  
+  2. If **all** subtasks underneath a parent task are now `[x]`, also mark the **parent task** as completed.  
+- Stop after each sub‑task and wait for the user's go‑ahead.
+
+## Task List Maintenance
+
+1. **Update the task list as you work:**
+   - Mark tasks and subtasks as completed (`[x]`) per the protocol above.
+   - Add new tasks as they emerge.
+
+2. **Maintain the "Relevant Files" section:**
+   - List every file created or modified.
+   - Give each file a one‑line description of its purpose.
+
+## Test File Creation
+
+When a **parent task** is marked as completed (`[x]`):
+
+1. **Create a test file** in the appropriate test directory:
+   - Path: As defined in config → `paths.featuresDirectory/[feature-name]/tests/[parent-task-name].md`
+   - Where `[feature-name]` is the name of the feature being developed
+   - And `[parent-task-name]` is the name of the completed parent task (sanitized for filename use)
+
+2. **Use the test template** defined in `templates.test` from the config file for consistent formatting
+
+3. **Test file should include:**
+   - **Task Summary:** A brief description of what was accomplished
+   - **Implementation Details:** Key components or functionality added
+   - **Manual Test Cases:** A numbered list of manual tests the user can perform to verify the functionality works as expected
+   - **Expected Results:** What should happen when each test is performed successfully
+   - **Files Modified:** List of files that were created or modified during this task
+
+## AI Instructions
+
+When working with task lists, the AI must:
+
+1. Regularly update the task list file after finishing any significant work.
+2. Follow the completion protocol:
+   - Mark each finished **sub‑task** `[x]`.
+   - Mark the **parent task** `[x]` once **all** its subtasks are `[x]`.
+3. **When marking a parent task as completed:** Create a test file using the path defined in config and the test template for consistent formatting.
+4. Add newly discovered tasks.
+5. Keep "Relevant Files" accurate and up to date.
+6. Before starting work, check which sub‑task is next.
+7. After implementing a sub‑task, update the file and then pause for user approval.
+8. **Follow config paths:** Use paths defined in workflow-config.json for all file operations.
+
+## Prerequisites
+
+This rule should be used after:
+- Step 1: PRD has been created (01-create-prd)
+- Step 2: Technical roadmap has been generated (02-analyze-codebase)  
+- Step 3: Task list has been generated (03-generate-tasks-from-prd)
+
+## Integration with Previous Steps
+
+The task list management leverages all previous work:
+- **PRD requirements** guide what constitutes "done"
+- **Technical roadmap** informs implementation approach
+- **Generated tasks** provide the structure to follow
+- **Test files** validate completion against PRD goals
+- **Config settings** ensure consistent paths and formatting
