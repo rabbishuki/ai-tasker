@@ -4,7 +4,7 @@
   "description": "AI-powered task management and project workflow assistant",
   "main": "index.js",
   "bin": {
-    "ai-tasker": "./bin/cli.js"
+    "ai-tasker": "bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,7 @@
     "cli",
     "automation"
   ],
-  "author": "",
+  "author": "Rabbi Shuki",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
@@ -30,7 +30,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/rabbishuki/ai-tasker.git"
+    "url": "git+https://github.com/rabbishuki/ai-tasker.git"
   },
-  "homepage": "https://github.com/rabbishuki/ai-tasker#readme"
-} 
+  "homepage": "https://github.com/rabbishuki/ai-tasker#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "bugs": {
+    "url": "https://github.com/rabbishuki/ai-tasker/issues"
+  }
+}
