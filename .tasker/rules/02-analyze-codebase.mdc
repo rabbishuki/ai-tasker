@@ -1,6 +1,6 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
 # Rule: Analyzing Existing Codebase for PRD Implementation
@@ -12,9 +12,14 @@ To guide an AI assistant in analyzing the existing codebase against a PRD's requ
 ## Configuration
 
 This rule uses settings from `.tasker/config/workflow-config.json`:
-- **Output path**: Uses `paths.featuresDirectory` + `/[feature-name]/roadmap.md`
-- **Input path**: Expects PRD at `paths.featuresDirectory` + `/[feature-name]/PRD.md`
+- **Output path**: Uses `settings.featuresDirectory` + `/[feature-name]/roadmap.md`
+- **Input path**: Expects PRD at `settings.featuresDirectory` + `/[feature-name]/PRD.md`
 - **Template**: Uses `templates.roadmap` for consistent formatting
+
+## Prerequisites
+
+This rule should be used after:
+- Step 1: PRD has been created (01-create-prd)
 
 ## Process
 
@@ -31,58 +36,12 @@ This rule uses settings from `.tasker/config/workflow-config.json`:
 
 ## Analysis Structure
 
-The generated technical roadmap should follow the template at `templates.roadmap` and must include these sections:
-
-### ✅ Existing Infrastructure (Can Be Modified)
-- **Backend Infrastructure** - Current server setup, database, APIs
-- **Frontend Infrastructure** - UI components, routing, state management  
-- **Data Models** - Existing schemas and structures
-- Completion percentages for each area
-
-### 🔨 Major Modifications Required
-- **Authentication System** - Current vs. needed capabilities
-- **Business Logic** - Areas requiring significant changes
-- **Database Schema** - Tables/fields to add or modify
-- Specific files that need modification
-
-### 🆕 Implement From Scratch
-- **Missing Core Systems** - Components with 0% implementation
-- **New Features** - Functionality not present in codebase
-- **Integration Points** - New connections between systems
-- Dependencies that need to be added
-
-### 📦 Missing Dependencies
-- Backend dependencies to add with versions
-- Frontend dependencies to add with versions
-- Any build tool or infrastructure changes needed
-
-### 🗂️ New Files Required
-- **Backend Files** - New routes, controllers, services, models
-- **Frontend Files** - New components, hooks, services, stores
-- Brief description of each file's purpose
-
-### 📊 Implementation Effort Analysis
-- Table format comparing components by:
-  - Current Status
-  - Required Effort (Low/Medium/High)
-  - Priority (Critical/High/Medium/Low)
-
-### 🎯 Development Strategy
-- **Phase-based Implementation Plan** with realistic timelines
-- **Overall Assessment** with percentage breakdown (modify vs. new)
-- **Risk Assessment** and mitigation strategies
-
-### 📁 Implementation File Tree
-- **Visual representation** of all file changes needed
-- Show new files to be created with `[NEW]` indicator
-- Show existing files to be modified with `[MODIFIED]` indicator
-- Include brief description of changes for each file
-- Organize by feature/component groupings
+The generated technical roadmap should follow the template at `templates.roadmap`
 
 ## Output Requirements
 
 - **Format:** Markdown (`.md`)
-- **Location:** As defined in `workflow-config.json` → `paths.featuresDirectory/[feature-name]/`
+- **Location:** As defined in `workflow-config.json` → `settings.featuresDirectory/[feature-name]/`
 - **Filename:** `roadmap.md`
 - **Template:** Use the structure from `templates.roadmap` for consistent formatting
 - **Target Audience:** Development team and technical leads

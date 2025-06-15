@@ -1,45 +1,5 @@
 {
   "version": "1.0",
-  "workflow": {
-    "name": "Tasker Workflow System",
-    "description": "Complete PRD-to-Implementation Process",
-    "steps": [
-      {
-        "id": 1,
-        "name": "create-prd",
-        "rule": ".tasker/rules/01-create-prd.mdc",
-        "output": "docs/features/[feature-name]/PRD.md",
-        "dependencies": []
-      },
-      {
-        "id": 2,
-        "name": "analyze-codebase",
-        "rule": ".tasker/rules/02-analyze-codebase.mdc",
-        "output": "docs/features/[feature-name]/roadmap.md",
-        "dependencies": ["create-prd"]
-      },
-      {
-        "id": 3,
-        "name": "generate-tasks",
-        "rule": ".tasker/rules/03-generate-tasks-from-prd.mdc",
-        "output": "docs/features/[feature-name]/tasks.md",
-        "dependencies": ["create-prd", "analyze-codebase"]
-      },
-      {
-        "id": 4,
-        "name": "implement-tasks",
-        "rule": ".tasker/rules/04-implement-next-task.mdc",
-        "output": "docs/features/[feature-name]/tests/[task-name].md",
-        "dependencies": ["generate-tasks"]
-      }
-    ]
-  },
-  "paths": {
-    "featuresDirectory": "docs/features",
-    "docsDirectory": "docs",
-    "templatesDirectory": ".tasker/templates",
-    "rulesDirectory": ".tasker/rules"
-  },
   "templates": {
     "prd": ".tasker/templates/prd-template.md",
     "roadmap": ".tasker/templates/roadmap-template.md",
@@ -47,6 +7,7 @@
     "test": ".tasker/templates/test-template.md"
   },
   "settings": {
+    "featuresDirectory": "docs/features",
     "maxTasksPerParent": 8,
     "taskTimeoutDays": 1,
     "defaultPrdSections": [

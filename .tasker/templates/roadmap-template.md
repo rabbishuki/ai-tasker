@@ -4,6 +4,31 @@
 
 Based on analysis of the existing codebase against the [Feature Name] requirements, the current implementation provides [summary of current state]. The project has approximately **[X]% completion** toward the feature goals, with [strengths] but missing [key gaps].
 
+## 📊 Implementation Effort Analysis
+
+| Component | Current Status | Required Effort | Priority | Dependencies | Story Point Estimate
+|-----------|---------------|-----------------|----------|--------------|-----------------|
+| [Component 1] | [X]% | [Low/Medium/High] | [Critical/High/Medium/Low] | [List dependencies] | [X] days / hours / minutes |
+| [Component 2] | [X]% | [Low/Medium/High] | [Critical/High/Medium/Low] | [List dependencies] | [X] days / hours / minutes |
+| [Component 3] | [X]% | [Low/Medium/High] | [Critical/High/Medium/Low] | [List dependencies] | [X] days / hours / minutes |
+
+## Risk Assessment
+
+### High Risk Items
+- **[Risk 1]**: [Description and mitigation strategy]
+- **[Risk 2]**: [Description and mitigation strategy]
+
+### Medium Risk Items
+- **[Risk 1]**: [Description and mitigation strategy]
+
+## Success Criteria
+
+- [ ] [Criterion 1 from PRD]
+- [ ] [Criterion 2 from PRD]
+- [ ] [Criterion 3 from PRD]
+- [ ] [Technical performance criterion]
+- [ ] [Integration criterion] 
+
 ## ✅ Existing Infrastructure (Can Be Modified)
 
 ### Backend Infrastructure - [X]% Complete
@@ -90,14 +115,6 @@ Based on analysis of the existing codebase against the [Feature Name] requiremen
 - `[path/to/component2.tsx]` - [Purpose description]
 - `[path/to/service1.ts]` - [Purpose description]
 
-## 📊 Implementation Effort Analysis
-
-| Component | Current Status | Required Effort | Priority | Dependencies |
-|-----------|---------------|-----------------|----------|--------------|
-| [Component 1] | [X]% | [Low/Medium/High] | [Critical/High/Medium/Low] | [List dependencies] |
-| [Component 2] | [X]% | [Low/Medium/High] | [Critical/High/Medium/Low] | [List dependencies] |
-| [Component 3] | [X]% | [Low/Medium/High] | [Critical/High/Medium/Low] | [List dependencies] |
-
 ## 🎯 Development Strategy
 
 ### Phase 1: Foundation ([Timeframe])
@@ -136,20 +153,3 @@ Based on analysis of the existing codebase against the [Feature Name] requiremen
 └── [config-changes]/
     └── [config-file.json] [MODIFIED] - [Description of changes]
 ```
-
-## Risk Assessment
-
-### High Risk Items
-- **[Risk 1]**: [Description and mitigation strategy]
-- **[Risk 2]**: [Description and mitigation strategy]
-
-### Medium Risk Items
-- **[Risk 1]**: [Description and mitigation strategy]
-
-## Success Criteria
-
-- [ ] [Criterion 1 from PRD]
-- [ ] [Criterion 2 from PRD]
-- [ ] [Criterion 3 from PRD]
-- [ ] [Technical performance criterion]
-- [ ] [Integration criterion] 

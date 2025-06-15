@@ -10,16 +10,24 @@ Guidelines for managing task lists in markdown files to track progress on comple
 ## Configuration
 
 This rule uses settings from `.tasker/config/workflow-config.json`:
-- **Test file path**: Uses `paths.featuresDirectory` + `/[feature-name]/tests/[task-name].md`
+- **Test file path**: Uses `settings.featuresDirectory` + `/[feature-name]/tests/[task-name].md`
 - **Test template**: Uses `templates.test` for consistent test file format
 - **Task timeout**: Uses `settings.taskTimeoutDays` for planning guidance
 
+## Prerequisites
+
+This rule should be used after:
+- Step 1: PRD has been created (01-create-prd)
+- Step 2: Technical roadmap has been generated (02-analyze-codebase)  
+- Step 3: Task list has been generated (03-generate-tasks-from-prd)
+
 ## Task Implementation
+
 - **Task Ordering:** Take the next task based on the first sub-task that is not completed
 - **One sub‑task at a time:** Do **NOT** start the next sub‑task until you ask the user for permission and they say "yes" or "y"
 - **Completion protocol:**  
   1. When you finish a **sub‑task**, immediately mark it as completed by changing `[ ]` to `[x]`.  
-  2. If **all** subtasks underneath a parent task are now `[x]`, also mark the **parent task** as completed.  
+  2. If **all** subtasks underneath a parent task are now `[x]`, also mark the **parent task** as completed.
 - Stop after each sub‑task and wait for the user's go‑ahead.
 
 ## Task List Maintenance
@@ -37,7 +45,7 @@ This rule uses settings from `.tasker/config/workflow-config.json`:
 When a **parent task** is marked as completed (`[x]`):
 
 1. **Create a test file** in the appropriate test directory:
-   - Path: As defined in config → `paths.featuresDirectory/[feature-name]/tests/[parent-task-name].md`
+   - Path: As defined in config → `settings.featuresDirectory/[feature-name]/tests/[parent-task-name].md`
    - Where `[feature-name]` is the name of the feature being developed
    - And `[parent-task-name]` is the name of the completed parent task (sanitized for filename use)
 
@@ -64,13 +72,8 @@ When working with task lists, the AI must:
 6. Before starting work, check which sub‑task is next.
 7. After implementing a sub‑task, update the file and then pause for user approval.
 8. **Follow config paths:** Use paths defined in workflow-config.json for all file operations.
+9. Prefer using cli commands of tools (i.e. `git init`, `npx create-react-app`) when possible.
 
-## Prerequisites
-
-This rule should be used after:
-- Step 1: PRD has been created (01-create-prd)
-- Step 2: Technical roadmap has been generated (02-analyze-codebase)  
-- Step 3: Task list has been generated (03-generate-tasks-from-prd)
 
 ## Integration with Previous Steps
 
