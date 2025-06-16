@@ -20,7 +20,7 @@ This workflow consists of 4 sequential steps, each building on the previous:
 
 3. **📋 Generate Tasks** - Break the work into small, manageable pieces.
 
-   *Example: `@.tasker/rules/03-generate-tasks-from-prd.mdc @docs/features/user-auth`*
+   *Example: `@.tasker/rules/03-generate-task.mdc @docs/features/user-auth`*
 
 4. **✅ Execute Tasks** - Build one piece at a time, testing as you go.
 

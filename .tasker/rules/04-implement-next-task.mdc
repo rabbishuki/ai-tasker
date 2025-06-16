@@ -1,8 +1,3 @@
----
-description: 
-globs: 
-alwaysApply: false
----
 # Task List Management
 
 Guidelines for managing task lists in markdown files to track progress on completing a PRD
@@ -21,65 +16,69 @@ This rule should be used after:
 - Step 2: Technical roadmap has been generated (02-analyze-codebase)  
 - Step 3: Task list has been generated (03-generate-tasks-from-prd)
 
-## Task Implementation
+## Agent Action Steps
 
-- **Task Ordering:** Take the next task based on the first sub-task that is not completed
-- **One sub‑task at a time:** Do **NOT** start the next sub‑task until you ask the user for permission and they say "yes" or "y"
-- **Completion protocol:**  
-  1. When you finish a **sub‑task**, immediately mark it as completed by changing `[ ]` to `[x]`.  
-  2. If **all** subtasks underneath a parent task are now `[x]`, also mark the **parent task** as completed.
-- Stop after each sub‑task and wait for the user's go‑ahead.
+### 1. Identify the Next Task
+- **Find the first sub-task** in the task list that is not completed (`[ ]`).
+- **Do not** start more than one sub-task at a time.
+- **Before starting**, ask the user for permission to proceed with the next sub-task. Wait for a clear "yes" or "y" before continuing.
 
-## Task List Maintenance
+### 2. When Completing a Sub-task
+- **Mark the sub-task as completed** by changing `[ ]` to `[x]` in the task list file.
+- **Check if all subtasks under the same parent are now `[x]`**:
+  - **If yes:**
+    - Mark the parent task as completed (`[x]`).
+    - Proceed to step 3 (Parent Task Completion).
+  - **If no:**
+    - Stop and wait for the user's go-ahead before starting the next sub-task.
 
-1. **Update the task list as you work:**
-   - Mark tasks and subtasks as completed (`[x]`) per the protocol above.
-   - Add new tasks as they emerge.
+### 3. When Completing a Parent Task
+- **Create a test file** for the parent task:
+  - **Path:** Use `settings.featuresDirectory/[feature-name]/tests/[parent-task-name].md` from `.tasker/config/workflow-config.json`.
+  - **Template:** Use the test template at the path specified by `templates.test` in the config.
+  - **Filename:** Sanitize `[parent-task-name]` for safe filenames (no spaces, special chars).
+- **Populate the test file** with:
+  - Task Summary (what was accomplished)
+  - Implementation Details (key components or functionality added)
+  - Manual Test Cases (numbered list of manual tests)
+  - Expected Results (for each test)
+  - Files Modified (list every file created or modified during this task)
+- **Update the "Relevant Files" section** in the task list:
+  - Add every file created or modified, with a one-line description of its purpose.
+- **Don't continue** implementing the next parent task.
 
-2. **Maintain the "Relevant Files" section:**
-   - List every file created or modified.
-   - Give each file a one‑line description of its purpose.
+### 4. General Maintenance
+- **Always update the task list file** after any significant work.
+- **Add new tasks** as they emerge.
+- **Keep the "Relevant Files" section accurate and up to date.**
+- **Follow all config paths** from `.tasker/config/workflow-config.json` for file operations.
 
-## Test File Creation
+---
 
-When a **parent task** is marked as completed (`[x]`):
+## If/Then Triggers
+- **If** a sub-task is completed, **then** mark it `[x]` and check if the parent is now complete.
+- **If** all subtasks under a parent are `[x]`, **then** mark the parent `[x]` and create the test file.
+- **If** a parent task is completed, **then** update the "Relevant Files" section and create the test file.
+- **If** you cannot find the config or template, **then** stop and ask the user for help.
 
-1. **Create a test file** in the appropriate test directory:
-   - Path: As defined in config → `settings.featuresDirectory/[feature-name]/tests/[parent-task-name].md`
-   - Where `[feature-name]` is the name of the feature being developed
-   - And `[parent-task-name]` is the name of the completed parent task (sanitized for filename use)
+---
 
-2. **Use the test template** defined in `templates.test` from the config file for consistent formatting
+## Troubleshooting & Reminders for the Agent
+- **If you cannot find the correct file path or template,** ask the user for clarification.
+- **If you are unsure which task is next,** ask the user.
+- **If you encounter an error or missing information,** stop and notify the user before proceeding.
+- **Never skip steps or make assumptions.**
 
-3. **Test file should include:**
-   - **Task Summary:** A brief description of what was accomplished
-   - **Implementation Details:** Key components or functionality added
-   - **Manual Test Cases:** A numbered list of manual tests the user can perform to verify the functionality works as expected
-   - **Expected Results:** What should happen when each test is performed successfully
-   - **Files Modified:** List of files that were created or modified during this task
+---
 
-## AI Instructions
+## Example Workflow (Checklist for Agent)
+- [ ] Ask user for permission to start the next sub-task.
+- [ ] Mark sub-task as `[x]` when done.
+- [ ] If all subtasks under a parent are `[x]`, mark parent `[x]`.
+- [ ] If parent is `[x]`, create test file using config/template.
+- [ ] Update "Relevant Files" section.
+- [ ] Stop and wait for user approval before next task.
 
-When working with task lists, the AI must:
+---
 
-1. Regularly update the task list file after finishing any significant work.
-2. Follow the completion protocol:
-   - Mark each finished **sub‑task** `[x]`.
-   - Mark the **parent task** `[x]` once **all** its subtasks are `[x]`.
-3. **When marking a parent task as completed:** Create a test file using the path defined in config and the test template for consistent formatting.
-4. Add newly discovered tasks.
-5. Keep "Relevant Files" accurate and up to date.
-6. Before starting work, check which sub‑task is next.
-7. After implementing a sub‑task, update the file and then pause for user approval.
-8. **Follow config paths:** Use paths defined in workflow-config.json for all file operations.
-9. Prefer using cli commands of tools (i.e. `git init`, `npx create-react-app`) when possible.
-
-
-## Integration with Previous Steps
-
-The task list management leverages all previous work:
-- **PRD requirements** guide what constitutes "done"
-- **Technical roadmap** informs implementation approach
-- **Generated tasks** provide the structure to follow
-- **Test files** validate completion against PRD goals
-- **Config settings** ensure consistent paths and formatting
+**Always follow these steps exactly. Do not proceed to the next task or sub-task without explicit user approval.**
